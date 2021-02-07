@@ -17,6 +17,11 @@ const UserManagement = () => {
     setEditData(user);
     setShowModal(true);
   };
+
+  const deleteUser = (user) => () => {
+    setUserData(userData.filter((item) => item.id !== user.id));
+  };
+
   const handleNewUser = (fields) => {
     setUserData([...userData, fields]);
     closeModal();
@@ -26,6 +31,7 @@ const UserManagement = () => {
     setUserData(sortBy(uniqBy([fields, ...userData], "id"), ["id"]));
     closeModal();
   };
+
   return (
     <>
       <div>
@@ -42,7 +48,7 @@ const UserManagement = () => {
                 <div>{item.dob}</div>
               </div>
               <button onClick={editUser(item)}>Edit</button>
-              <button>Remove</button>
+              <button onClick={deleteUser(item)}>Remove</button>
             </div>
           ))}
         </div>
