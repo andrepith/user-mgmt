@@ -1,23 +1,19 @@
-export const data = [
-  {
-    id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@gmail.com",
-    dob: 1595493789,
-  },
-  {
-    id: 2,
-    firstName: "Jane",
-    lastName: "Doe",
-    email: "jane.doe@gmail.com",
-    dob: 1595493789,
-  },
-  {
-    id: 3,
-    firstName: "Dave",
-    lastName: "Ghrol",
-    email: "dave.ghrol@gmail.com",
-    dob: 1595493789,
-  },
-];
+import axios from "axios";
+
+const url = "http://localhost:5000/users";
+
+export const getList = () =>
+  axios
+    .get(url)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+
+export const postList = (data) =>
+  axios
+    .post(url, data)
+    .then((res) => res.data)
+    .catch((err) => console.error(err));
+
+export const deleteList = (id) => axios.delete(url + "/" + id);
+
+export const patchList = (id, data) => axios.patch(url + "/" + id, data);

@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { uniqBy, sortBy } from "lodash";
 import UserForm from "../components/Form";
-import { data } from "../services/index";
+import { getList, postList, deleteList, patchList } from "../services";
 
 const UserManagement = () => {
-  const [userData, setUserData] = useState(data);
+  const [userData, setUserData] = useState([]);
   const [editData, setEditData] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const fetchData = () => {
+    getList().then((res) => setUserData(res));
+  };
   const closeModal = () => setShowModal(false);
   const createUser = () => {
     setEditData({});
@@ -19,22 +22,26 @@ const UserManagement = () => {
   };
 
   const deleteUser = (user) => () => {
-    setUserData(userData.filter((item) => item.id !== user.id));
+    deleteList(user.id).then((res) => setUserData(res.data));
   };
 
   const handleNewUser = (fields) => {
-    setUserData([...userData, fields]);
+    postList(fields).then((res) => setUserData(res));
     closeModal();
   };
 
   const handleEditUser = (fields) => {
-    setUserData(sortBy(uniqBy([fields, ...userData], "id"), ["id"]));
+    patchList(fields.id, fields).then((res) => setUserData(res.data));
     closeModal();
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
-      <div>
+      <div className="container">
         <h1>User Management</h1>
         <button onClick={createUser}>Add new user</button>
         <div>
