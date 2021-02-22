@@ -4,6 +4,7 @@ import moment from "moment";
 import Table from "../components/Table";
 import UserForm from "../components/Form";
 import { getList, postList, deleteList, patchList } from "../services";
+import { customStyles } from "./properties";
 
 const UserManagement = () => {
   const [userData, setUserData] = useState([]);
@@ -54,7 +55,11 @@ const UserManagement = () => {
         </div>
         <Table data={userData} editUser={editUser} deleteUser={deleteUser} />
       </div>
-      <Modal isOpen={showModal} onRequestClose={closeModal}>
+      <Modal
+        isOpen={showModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
         <UserForm
           handleNewUser={handleNewUser}
           handleEditUser={handleEditUser}
