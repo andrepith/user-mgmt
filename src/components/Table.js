@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const Table = ({ data, editUser, deleteUser }) => {
   return (
     <table class="table table-striped">
@@ -16,7 +18,7 @@ const Table = ({ data, editUser, deleteUser }) => {
             <td>{item.firstName}</td>
             <td>{item.lastName}</td>
             <td>{item.email}</td>
-            <td>{item.dob}</td>
+            <td>{moment(item.dob * 1000).format("L")}</td>
             <td>
               <div className="btn btn-edit" onClick={editUser(item)}>
                 Edit

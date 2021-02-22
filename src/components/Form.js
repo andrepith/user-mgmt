@@ -1,7 +1,15 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import DatePicker from "./DatePicker";
 
-const UserForm = ({ handleNewUser, handleEditUser, editData, userData }) => {
+const UserForm = ({
+  handleNewUser,
+  handleEditUser,
+  editData,
+  userData,
+  date,
+  handleChangeDate,
+}) => {
   const isEdit = !!Object.keys(editData).length;
   return (
     <Formik
@@ -72,6 +80,12 @@ const UserForm = ({ handleNewUser, handleEditUser, editData, userData }) => {
               component="div"
               className="invalid-feedback"
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Date of Birth</label>
+            <div>
+              <DatePicker date={date} handleChangeDate={handleChangeDate} />
+            </div>
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary mr-2">
